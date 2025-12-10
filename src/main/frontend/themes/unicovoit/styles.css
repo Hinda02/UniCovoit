@@ -1,0 +1,429 @@
+:root {
+  --uc-blue: #0d5bff;
+  --uc-blue-dark: #0a44c0;
+  --uc-dark: #02010a;
+  --uc-bg-light: #f5f7fb;
+}
+
+/* Root page layout */
+.page-root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: white;
+}
+
+/* HEADER */
+.header {
+  padding: 0.8rem 3rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+.logo-area {
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.logo-text {
+  margin: 0;
+  font-weight: 600;
+  color: var(--uc-blue);
+}
+
+.header-right a.link-signup {
+  margin-right: 1.5rem;
+  text-decoration: none;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+.btn-login {
+  background-color: var(--uc-dark);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0.4rem 1.3rem;
+  font-weight: 500;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, var(--uc-blue), var(--uc-blue-dark));
+  color: #ffffff;
+  padding: 3.5rem 2rem 4rem;
+  width: 100%;
+}
+
+.hero-subtitle {
+  margin: 0 0 0.6rem 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.hero-title {
+  margin: 0 0 2rem 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  max-width: 680px;
+}
+
+/* search card */
+.search-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 1.7rem 1.8rem 1.4rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+
+  width: 100%;           /* takes full available width */
+  max-width: 900px;      /* but not more than 900px */
+  margin-left: 0;      /* align left */
+  margin-right: auto;      
+  box-sizing: border-box;
+}
+
+.search-row {
+  gap: 1rem;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.search-btn-row {
+  margin-top: 1.2rem;
+}
+
+.btn-search {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.5rem 1.8rem;
+  font-weight: 500;
+}
+
+/* FEATURES SECTION */
+.features-section {
+  padding: 3rem 3rem 2rem;
+  text-align: center;
+  background-color: #ffffff;
+  width: 100%;
+}
+
+.features-title {
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.features-cards {
+  gap: 3rem;
+}
+
+.feature-card {
+  background-color: #f9fafb;
+  border-radius: 18px;
+  padding: 1.5rem 1.4rem;
+  max-width: 260px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+}
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background-color: #e0ecff;
+  margin-bottom: 0.8rem;
+}
+
+.feature-heading {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+}
+
+.feature-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+/* CTA */
+.cta-section {
+  background-color: var(--uc-bg-light);
+  padding: 3rem 3rem 3.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.cta-title {
+  margin: 0 0 0.4rem 0;
+  font-weight: 600;
+}
+
+.cta-subtitle {
+  margin: 0 0 1.5rem 0;
+  color: #4b5563;
+}
+
+.btn-cta {
+  background-color: var(--uc-dark);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0.6rem 1.8rem;
+  font-weight: 500;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #020617;
+  padding: 1rem 3rem;
+  color: #9ca3af;
+  text-align: center;
+  width: 100%;
+}
+
+.footer-text {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+/* ========== AUTH PAGES (login / register) ========== */
+
+.auth-page {
+  background-color: #f3f4f8;
+  padding: 3rem 1rem;
+}
+
+.auth-logo {
+  margin-bottom: 1.5rem;
+}
+
+.auth-logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.auth-logo-text {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #0d5bff;
+  margin-left: 0.5rem;
+}
+
+.auth-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+  max-width: 520px;
+  width: 100%;
+}
+
+.auth-title {
+  text-align: center;
+  margin: 0 0 1.5rem 0;
+  font-weight: 500;
+}
+
+.auth-button {
+  background-color: #02010a;
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 500;
+  padding: 0.6rem 0;
+}
+
+.auth-link-small {
+  font-size: 0.88rem;
+  color: #2563eb;
+  text-decoration: none;
+  margin-bottom: 0.8rem;
+}
+
+.auth-link-small:hover,
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+.auth-bottom {
+  text-align: center;
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.auth-link {
+  color: #2563eb;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-page {
+    padding-top: 2rem;
+  }
+}
+
+/* ========== RESULTS PAGE LAYOUT ========== */
+
+.results-page {
+  background-color: #f3f4f8;
+  min-height: 100vh;
+}
+
+/* Main container inside the page  */
+.results-content {
+  /* responsive side padding */
+  padding: 2rem 4vw 3rem;
+  width: 100%;
+  max-width: 1280px;        /* looks good on large screens */
+  margin: 0 auto;           /* center the block */
+  box-sizing: border-box;
+  gap: 1.5rem;
+}
+
+/* Top summary card */
+.results-summary-card {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 1.4rem 1.8rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+}
+
+/* List of ride cards */
+.rides-list {
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1.25rem;
+}
+
+/* ========== RIDE CARD ========== */
+
+/* The ride card is the main flex row */
+.ride-card {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+
+  background-color: #ffffff;
+  border-radius: 18px;
+  padding: 1.4rem 1.8rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+}
+
+/* Left column (driver + cities) grows */
+.ride-left-col {
+  display: flex;
+  flex: 1 1 auto;        /* <-- important: allow it to grow */
+  gap: 2.5rem;           /* space between driver and route info */
+  align-items: flex-start;
+}
+
+/* Right column (price + button) stays compact, but INSIDE the card */
+.ride-right-col {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.ride-route-block {
+  flex: 1 1 auto;        /* take all remaining width */
+  min-width: 0;          /* allow text to wrap instead of shrinking layout */
+}
+
+/* Small typographic tweaks */
+
+.ride-driver-name {
+  font-weight: 600;
+}
+
+.ride-driver-rating {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.ride-city {
+  font-weight: 500;
+}
+
+.ride-address {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.ride-places-row {
+  margin-top: 0.7rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.ride-places-badge {
+  background-color: #e5f3ff;
+  color: #1d4ed8;
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.ride-time {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.ride-price {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.ride-price-desc {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.ride-details-btn {
+  border-radius: 999px;
+  background-color: #02010a;
+  color: #ffffff;
+  padding: 0.45rem 1.3rem;
+}
+
+/* ========== RESPONSIVE (tablet / mobile) ========== */
+
+@media (max-width: 900px) {
+  .results-content {
+    padding: 1.5rem 1.25rem 2rem;
+    max-width: 100%;
+  }
+
+  .ride-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ride-right-col {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .ride-details-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
