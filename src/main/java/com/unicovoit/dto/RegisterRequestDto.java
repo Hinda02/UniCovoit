@@ -1,12 +1,30 @@
 package com.unicovoit.dto;
 
+import jakarta.validation.constraints.*;
+
 public class RegisterRequestDto {
 
+    @NotBlank(message = "Le prénom est obligatoire")
+    @Size(max = 100, message = "Le prénom ne doit pas dépasser 100 caractères")
     private String firstName;
+
+    @NotBlank(message = "Le nom est obligatoire")
+    @Size(max = 100, message = "Le nom ne doit pas dépasser 100 caractères")
     private String lastName;
+
+    @NotBlank(message = "L'email est obligatoire")
+    @Email(message = "L'email doit être valide")
     private String email;
+
+    @NotBlank(message = "L'université est obligatoire")
+    @Size(max = 255, message = "L'université ne doit pas dépasser 255 caractères")
     private String university;
+
+    @NotBlank(message = "Le mot de passe est obligatoire")
+    @Size(min = 8, message = "Le mot de passe doit contenir au moins 8 caractères")
     private String password;
+
+    @NotBlank(message = "La confirmation du mot de passe est obligatoire")
     private String confirmPassword;
 
     public RegisterRequestDto() {}

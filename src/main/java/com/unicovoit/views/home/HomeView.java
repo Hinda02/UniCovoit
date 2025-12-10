@@ -1,210 +1,145 @@
 package com.unicovoit.views.home;
 
-import com.vaadin.flow.theme.lumo.LumoUtility;
-
-import com.vaadin.flow.component.Component;
+import com.unicovoit.util.SessionManager;
+import com.unicovoit.views.layout.MainLayout;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.component.html.Anchor;
-import com.unicovoit.views.auth.LoginView;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 
-
-@Route("")                     // this is the home page: http://localhost:8080
-@PageTitle("UniCovoit")
+@Route(value = "", layout = MainLayout.class)
+@PageTitle("Accueil | UniCovoit")
 public class HomeView extends VerticalLayout {
 
     public HomeView() {
+        if (!SessionManager.isLoggedIn()) {
+            getUI().ifPresent(ui -> ui.navigate("login"));
+            return;
+        }
+
         setSizeFull();
-        setWidthFull();                              
-        setPadding(false);                             
-        setSpacing(false);                               
-        setMargin(false);                                
-        setDefaultHorizontalComponentAlignment(Alignment.STRETCH); 
-        
-        addClassName("page-root");
+        setPadding(false);
+        setSpacing(false);
 
-        // HEADER
-        add(createHeader());
-
-        // HERO SECTION (blue background with search card)
-        add(createHeroSection());
-
-        // FEATURES SECTION (3 icons/text blocks)
-        add(createFeaturesSection());
-
-        // CTA SECTION (ready to start)
-        add(createCtaSection());
-
-        // FOOTER
-        add(createFooter());
+        add(createHeroSection(), createFeaturesSection(), createCtaSection());
     }
 
-    private Component createHeader() {
-        HorizontalLayout header = new HorizontalLayout();
-        header.addClassName("header");
-        header.setWidthFull();
-        header.setPadding(true);
-        header.setSpacing(true);
-        header.setAlignItems(Alignment.CENTER);
-        header.setJustifyContentMode(JustifyContentMode.BETWEEN);
-
-        // Logo + name
-        HorizontalLayout logoArea = new HorizontalLayout();
-        logoArea.addClassName("logo-area");
-        Image logo = new Image("icons/unicovoit-logo.svg", "UniCovoit"); // you can change to any image or remove
-        logo.addClassName("logo-icon");
-        H3 logoText = new H3("UniCovoit");
-        logoText.addClassName("logo-text");
-        logoArea.add(logo, logoText);
-        logoArea.setAlignItems(Alignment.CENTER);
-
-        // Right buttons
-        Anchor signupLink = new Anchor("register", "S'inscrire");
-        signupLink.addClassName("link-signup");
-
-        // Button for login, using programmatic navigation
-        Button loginBtn = new Button("Se connecter", e ->
-        e.getSource().getUI().ifPresent(ui -> ui.navigate("login"))
-		);
-		loginBtn.addClassName("btn-login");
-
-        HorizontalLayout right = new HorizontalLayout(signupLink, loginBtn);
-        right.addClassName("header-right");
-        right.setAlignItems(Alignment.CENTER);
-
-        header.add(logoArea, right);
-        return header;
-    }
-
-    private Component createHeroSection() {
+    private Div createHeroSection() {
         Div hero = new Div();
-        hero.addClassName("hero");
+        hero.addClassNames(
+                LumoUtility.Background.CONTRAST_5,
+                LumoUtility.Padding.XLARGE,
+                LumoUtility.BorderRadius.MEDIUM
+        );
+        hero.getStyle().set("margin", "var(--lumo-space-l)");
 
-        // Text
-        Paragraph subtitle = new Paragraph("Trouvez un trajet ou proposez un trajet");
-        subtitle.addClassName("hero-subtitle");
+        H1 title = new H1("Bienvenue sur UniCovoit");
+        title.addClassNames(LumoUtility.TextColor.PRIMARY, LumoUtility.Margin.Bottom.MEDIUM);
 
-        H2 title = new H2(
-                "Partagez vos trajets entre étudiants, économisez et réduisez votre empreinte carbone");
-        title.addClassName("hero-title");
+        Paragraph subtitle = new Paragraph(
+                "La plateforme de covoiturage dédiée aux étudiants. " +
+                "Partagez vos trajets, économisez de l'argent et réduisez votre empreinte carbone !"
+        );
+        subtitle.addClassNames(LumoUtility.TextColor.SECONDARY, LumoUtility.FontSize.LARGE);
 
-        // Search card
-        Div searchCard = new Div();
-        searchCard.addClassName("search-card");
+        HorizontalLayout actions = new HorizontalLayout();
+        actions.addClassName(LumoUtility.Gap.MEDIUM);
 
-        TextField departureField = new TextField("Départ");
-        departureField.setPlaceholder("Ville de départ");
-        departureField.addClassName("search-field");
+        Button searchButton = new Button("Rechercher un trajet", VaadinIcon.SEARCH.create());
+        searchButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_LARGE);
+        searchButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("search")));
 
-        TextField arrivalField = new TextField("Arrivée");
-        arrivalField.setPlaceholder("Ville d'arrivée");
-        arrivalField.addClassName("search-field");
+        Button createRideButton = new Button("Proposer un trajet", VaadinIcon.CAR.create());
+        createRideButton.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        createRideButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("create-ride")));
 
-        DatePicker dateField = new DatePicker("Date");
-        dateField.setPlaceholder("jj/mm/aaaa");
-        dateField.addClassName("search-field");
+        actions.add(searchButton, createRideButton);
 
-        HorizontalLayout fieldsRow = new HorizontalLayout(departureField, arrivalField, dateField);
-        fieldsRow.addClassName("search-row");
-        fieldsRow.setWidthFull();
-
-        Button searchBtn = new Button("Rechercher");
-        searchBtn.addClassName("btn-search");
-        searchBtn.addClickListener(e ->
-        e.getSource().getUI().ifPresent(ui -> ui.navigate("results"))
-);
-
-
-        HorizontalLayout btnRow = new HorizontalLayout(searchBtn);
-        btnRow.addClassName("search-btn-row");
-        btnRow.setWidthFull();
-        btnRow.setJustifyContentMode(JustifyContentMode.START);
-
-        searchCard.add(fieldsRow, btnRow);
-
-        hero.add(subtitle, title, searchCard);
+        hero.add(title, subtitle, actions);
         return hero;
     }
 
-    private Component createFeaturesSection() {
-        Div section = new Div();
-        section.addClassName("features-section");
+    private HorizontalLayout createFeaturesSection() {
+        HorizontalLayout features = new HorizontalLayout();
+        features.setWidthFull();
+        features.addClassName(LumoUtility.Padding.LARGE);
+        features.addClassName(LumoUtility.Gap.LARGE);
 
-        Paragraph title = new Paragraph("Pourquoi choisir UniCovoit ?");
-        title.addClassName("features-title");
+        features.add(
+                createFeatureCard(
+                        VaadinIcon.MONEY,
+                        "Économique",
+                        "Partagez les frais de transport et économisez sur vos déplacements quotidiens"
+                ),
+                createFeatureCard(
+                        VaadinIcon.GROUP,
+                        "Communautaire",
+                        "Rencontrez d'autres étudiants et créez des liens pendant vos trajets"
+                ),
+                createFeatureCard(
+                        VaadinIcon.GLOBE,
+                        "Écologique",
+                        "Réduisez votre empreinte carbone en partageant votre véhicule"
+                )
+        );
 
-        // 3 feature blocks
-        VerticalLayout f1 = featureBlock(
-                "Communauté étudiante",
-                "Voyagez uniquement avec des étudiants vérifiés de votre université");
-        VerticalLayout f2 = featureBlock(
-                "Éco-responsable",
-                "Réduisez votre empreinte carbone en partageant vos trajets");
-        VerticalLayout f3 = featureBlock(
-                "Sécurisé et fiable",
-                "Profils vérifiés, évaluations et système de paiement sécurisé");
-
-        HorizontalLayout cards = new HorizontalLayout(f1, f2, f3);
-        cards.addClassName("features-cards");
-        cards.setWidthFull();
-        cards.setJustifyContentMode(JustifyContentMode.CENTER);
-cards.addClassNames(LumoUtility.Gap.Column.LARGE);
-
-        section.add(title, cards);
-        return section;
+        return features;
     }
 
-    private VerticalLayout featureBlock(String title, String text) {
-        VerticalLayout card = new VerticalLayout();
-        card.addClassName("feature-card");
-        card.setSpacing(false);
-        card.setAlignItems(Alignment.CENTER);
+    private Div createFeatureCard(VaadinIcon icon, String title, String description) {
+        Div card = new Div();
+        card.addClassNames(
+                LumoUtility.Background.BASE,
+                LumoUtility.BoxShadow.MEDIUM,
+                LumoUtility.BorderRadius.LARGE,
+                LumoUtility.Padding.LARGE
+        );
+        card.getStyle()
+                .set("flex", "1")
+                .set("text-align", "center");
 
-        Div iconCircle = new Div();
-        iconCircle.addClassName("feature-icon");  // purely decorative circle
+        Div iconDiv = new Div();
+        iconDiv.addClassNames(LumoUtility.TextColor.PRIMARY, LumoUtility.Margin.Bottom.MEDIUM);
+        iconDiv.getStyle()
+                .set("font-size", "3rem");
+        iconDiv.add(icon.create());
 
-        H4 heading = new H4(title);
-        heading.addClassName("feature-heading");
+        H3 cardTitle = new H3(title);
+        cardTitle.addClassName(LumoUtility.Margin.Bottom.SMALL);
 
-        Paragraph p = new Paragraph(text);
-        p.addClassName("feature-text");
+        Paragraph cardDesc = new Paragraph(description);
+        cardDesc.addClassName(LumoUtility.TextColor.SECONDARY);
 
-        card.add(iconCircle, heading, p);
+        card.add(iconDiv, cardTitle, cardDesc);
         return card;
     }
 
-    private Component createCtaSection() {
+    private Div createCtaSection() {
         Div cta = new Div();
-        cta.addClassName("cta-section");
+        cta.addClassNames(
+                LumoUtility.Background.PRIMARY,
+                LumoUtility.TextColor.PRIMARY_CONTRAST,
+                LumoUtility.Padding.XLARGE,
+                LumoUtility.TextAlignment.CENTER
+        );
+        cta.getStyle().set("margin", "var(--lumo-space-l)");
 
-        Paragraph ready = new Paragraph("Prêt à commencer ?");
-        ready.addClassName("cta-title");
+        H2 title = new H2("Prêt à commencer ?");
+        title.addClassName(LumoUtility.Margin.Bottom.MEDIUM);
 
-        Paragraph subtitle = new Paragraph("Rejoignez des milliers d'étudiants qui covoiturent déjà");
-        subtitle.addClassName("cta-subtitle");
+        Paragraph text = new Paragraph("Ajoutez votre véhicule et commencez à proposer des trajets dès maintenant !");
+        text.addClassName(LumoUtility.Margin.Bottom.LARGE);
 
-        Button btn = new Button("S'inscrire gratuitement");
-        btn.addClassName("btn-cta");
+        Button button = new Button("Gérer mes véhicules", VaadinIcon.CAR.create());
+        button.addThemeVariants(ButtonVariant.LUMO_CONTRAST, ButtonVariant.LUMO_LARGE);
+        button.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("vehicles")));
 
-        cta.add(ready, subtitle, btn);
+        cta.add(title, text, button);
         return cta;
-    }
-
-    private Component createFooter() {
-        Div footer = new Div();
-        footer.addClassName("footer");
-        footer.setWidthFull();
-
-        Paragraph p = new Paragraph("© 2025 UniCovoit – Plateforme de covoiturage étudiante");
-        p.addClassName("footer-text");
-
-        footer.add(p);
-        return footer;
     }
 }

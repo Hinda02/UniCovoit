@@ -1,6 +1,7 @@
 package com.unicovoit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +14,29 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Le prénom est obligatoire")
+    @Size(max = 100, message = "Le prénom ne doit pas dépasser 100 caractères")
     @Column(name = "first_name", nullable = false, length = 100)
     private String firstName;
 
+    @NotBlank(message = "Le nom est obligatoire")
+    @Size(max = 100, message = "Le nom ne doit pas dépasser 100 caractères")
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
 
+    @NotBlank(message = "L'email est obligatoire")
+    @Email(message = "L'email doit être valide")
+    @Size(max = 255, message = "L'email ne doit pas dépasser 255 caractères")
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
+    @NotBlank(message = "L'université est obligatoire")
+    @Size(max = 255, message = "L'université ne doit pas dépasser 255 caractères")
     @Column(nullable = false, length = 255)
     private String university;
 
+    @NotBlank(message = "Le mot de passe est obligatoire")
+    @Size(max = 255, message = "Le hash du mot de passe ne doit pas dépasser 255 caractères")
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 

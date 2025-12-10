@@ -1,6 +1,7 @@
 package com.unicovoit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,14 +12,18 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Le trajet est obligatoire")
     @ManyToOne(optional = false)
     @JoinColumn(name = "ride_id", nullable = false)
     private Ride ride;
 
+    @NotNull(message = "Le passager est obligatoire")
     @ManyToOne(optional = false)
     @JoinColumn(name = "passenger_id", nullable = false)
     private UserAccount passenger;
 
+    @Min(value = 1, message = "Le nombre de places réservées doit être au moins 1")
+    @Max(value = 8, message = "Le nombre de places réservées ne doit pas dépasser 8")
     @Column(name = "seats_booked", nullable = false)
     private int seatsBooked = 1;
 

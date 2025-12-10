@@ -1,11 +1,17 @@
 package com.unicovoit.dto;
 
+import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public class RideSearchRequestDto {
 
+    @NotBlank(message = "La ville de départ est obligatoire")
     private String departureCity;
+
+    @NotBlank(message = "La ville d'arrivée est obligatoire")
     private String arrivalCity;
+
+    @NotNull(message = "La date est obligatoire")
     private LocalDate date;
 
     public String getDepartureCity() { return departureCity; }

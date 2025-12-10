@@ -1,6 +1,7 @@
 package com.unicovoit.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,10 +12,12 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "L'expéditeur est obligatoire")
     @ManyToOne(optional = false)
     @JoinColumn(name = "sender_id", nullable = false)
     private UserAccount sender;
 
+    @NotNull(message = "Le destinataire est obligatoire")
     @ManyToOne(optional = false)
     @JoinColumn(name = "receiver_id", nullable = false)
     private UserAccount receiver;
@@ -23,6 +26,8 @@ public class Message {
     @JoinColumn(name = "ride_id")
     private Ride ride;
 
+    @NotBlank(message = "Le contenu du message est obligatoire")
+    @Size(max = 5000, message = "Le message ne doit pas dépasser 5000 caractères")
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
