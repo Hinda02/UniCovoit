@@ -21,7 +21,9 @@ public class SessionManager {
      * Get the current logged-in user from the session
      */
     public static UserAccount getCurrentUser() {
-        return VaadinSession.getCurrent().getAttribute(UserAccount.class);
+        VaadinSession session = VaadinSession.getCurrent();
+        if (session == null) return null;
+        return (UserAccount) session.getAttribute(USER_SESSION_ATTRIBUTE);
     }
 
     /**
